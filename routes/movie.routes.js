@@ -14,7 +14,7 @@ module.exports = app => {
       router.get("/movies?status=RELEASED", movies.findAllMovies);
     
       // Retrieve a single Movie with id
-      router.get("/movies/{movieId}",movies.findOne);
+      router.get("/movies/:movieId",movies.findOne);
     
       // Retrive shows
       router.get("/movies?status=RELEASED&title={title}&genres={genres}&artists={artists}&start_date={startdate}&end_date={enddate}", movies.findShows);
