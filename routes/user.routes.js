@@ -1,17 +1,17 @@
 module.exports = app => {
-    const users = require("../controllers/user.controller");
-    
-      var router = require("express").Router();
-    
-      router.post("/auth/login", users.login);
-    
-      router.post("/auth/signup", users.signUp);
+  const users = require("../controllers/user.controller");
   
-      router.post("/auth/logout", users.logout);
+    var router = require("express").Router();
+  
+    router.post("/auth/login", users.login);
+  
+    router.post("/auth/signup", users.signUp);
 
-      router.get("/auth/getCouponCode", users.getCouponCode);
+    router.post("/auth/logout", users.logout);
 
-      router.get("/auth/bookShow", users.bookShow);
+    router.get("/auth/coupons", users.getCouponCode);
 
-      app.use('/api', router);
-    };
+    router.post("/auth/bookings", users.bookShow);
+
+    //app.use('/api', router);
+  };

@@ -1,6 +1,7 @@
 var http = require('http');
 var movieroutes = require("./routes/movie.routes");
-
+var artistroutes = require("./routes/artist.routes");
+var genreroutes = require("./routes/genre.routes");
 
 // // Create a server object
 // http.createServer(function (req, res) {
@@ -77,11 +78,12 @@ app.use('/api',movieroutes);
 //     res.json({ message: "All Movies Data in JSON format from Mongo DB" });
 // });
 
+app.use('/api',artistroutes);
 // app.get('/genres', function (req, res) {
 //     res.json({ message: "All Genres Data in JSON format from Mongo DB" });
 // });
 
-
+app.use('/api',genreroutes);
 // app.get('/artists', function (req, res) {
 //     res.json({ message: "All Artists Data in JSON format from Mongo DB" });
 // });
@@ -92,13 +94,13 @@ app.use(function(req, res, next) {
     res.send('404: File Not Found');
 });
 
-require("./routes/artist.routes")(app);
-require("./routes/genre.routes")(app);
+
+
 require("./routes/user.routes")(app);
 
 
 app.listen(PORT, function () {
-    console.log('Movie app listening on port 8085!');
+    console.log('Movie app listening on port',PORT);
 });
 
 const db = require("./models");

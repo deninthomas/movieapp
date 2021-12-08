@@ -33,7 +33,7 @@ exports.findAllGenres = async (req, res) => {
     try {
     let data = await Genre.find({});
   
-  res.send(data);
+  res.send({genres:data});
     } catch(err) {
         res.status(500).send({
           message:

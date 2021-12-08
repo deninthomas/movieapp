@@ -3,7 +3,7 @@ module.exports = mongoose => {
         "movies",
         mongoose.Schema(
           {
-            movieid: { type : String , required : true },
+            movieid: { type : Number , required : true },
             title: { type : String , required : true },
             published: Boolean,
             released: Boolean,

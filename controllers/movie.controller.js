@@ -1,17 +1,18 @@
+const { movies } = require("../models");
 const db = require("../models");
 const Movie = db.movies;
 
 
 exports.create = async (req, res) => {
-  // Validate request
+
     if (!req.body.title) {
       res.status(400).send({ message: "Content can not be empty!" });
       return;
     }
 
-// Save Movies in the database
+
 try {
-  // Create a Movie
+ 
     const movie = new Movie({
         movieid: req.body.movieid,
         title: req.body.title,
@@ -32,7 +33,7 @@ try {
     });
     
     let saveMovie = await movie.save(); 
-    //when fail its goes to catch
+    
     res.send(saveMovie); 
    
   } catch (err) {
@@ -45,12 +46,12 @@ try {
 
 
 
-//  to search the movie by status.
+
 exports.findAllMovies = async (req, res) => {
     try {
     let data = await Movie.find({});
-  
-  res.send(data);
+ 
+  res.send({movies:data});
     } catch(err) {
         res.status(500).send({
           message:
@@ -60,32 +61,28 @@ exports.findAllMovies = async (req, res) => {
   };
 
 
-//to fetch all details of a movie given its id.
+
   exports.findOne = async (req, res) => {
-    try {
-    const id = req.params.id;
-    let data = await Movie.findById(id);
-    
-    if (!data)
-        res.status(404).send({ message: "Not found Movie with id " + id });
-    else 
-        res.send(data);
-    } catch(err) {
-          res.status(500).send({
-            message:
-              err.message || "Error retrieving Movie with id=" + id });
-        }
-    };
+    const id = req.params.movieId;
+    const data =await db.movies.find({movieid: id});
+    console.log({movieid:id});
+    console.log(data);
+    if(!data){
+        res.status(404).send({ message: "Not found movie with id " + id });
+    }
+    res.json(data);
+
+}
     
 
 
 //to fetch details of shows of a specific movie given its id.
 exports.findShows = async (req, res) => {
   try {
-    const id = req.params.id;
+    const id = req.params.movieid;
   let data = await Movie.findById(id).select('shows').distinct('shows');
 
-res.send(data);
+res.send({movies:data});
   } catch(err) {
       res.status(500).send({
         message:
@@ -94,6 +91,16 @@ res.send(data);
     }
 };
 
+// exports.findShows = async (req, res) => {
 
+//   const id=req.params.movieId;
+//   const show=await db.movies.findById({movies:id}).shows;
+//   if(!show || show.length === 0){
+//       res.status(404).send({ message: "Not found shows with id " + id });
+//   }
+//   else{
+//       res.json(show);
+//   }
 
+//}
 

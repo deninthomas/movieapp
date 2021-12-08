@@ -1,7 +1,7 @@
 const db = require("../models");
 const User = db.users;
 
-// Create and Save a user
+
 exports.signUp= async (req, res) => {
   // Validate request
   if (!req.body.email && !req.body.password) {
@@ -13,7 +13,7 @@ const filter = { email: req.body.email };
 let data = await User.findOne(filter);
 
 if(data === null) {
-//If not found , Create a User
+
 const user = new User({
     userid: req.body.userid,
     email: req.body.email,
