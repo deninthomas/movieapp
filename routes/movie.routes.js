@@ -1,4 +1,4 @@
-module.exports = app => {
+//module.exports = app => {
     const movies = require("../controllers/movie.controller.js");
     
       var router = require("express").Router();
@@ -18,6 +18,6 @@ module.exports = app => {
     
       // Retrive shows
       router.get("/movies?status=RELEASED&title={title}&genres={genres}&artists={artists}&start_date={startdate}&end_date={enddate}", movies.findShows);
-    
-      app.use('/api', router);
-    };
+      router.get("/api/movies:id/shows",movies.findShows);
+     module.exports = router;
+    //};

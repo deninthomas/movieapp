@@ -1,4 +1,6 @@
 var http = require('http');
+var movieroutes = require("./routes/movie.routes");
+
 
 // // Create a server object
 // http.createServer(function (req, res) {
@@ -69,6 +71,7 @@ app.use(express.static('public'));
 app.get('/', function (req, res) {
     res.json({ message: "Welcome to Upgrad Movie booking application development." });
 });
+app.use('/api',movieroutes);
 
 // app.get('/movies', function (req, res) {
 //     res.json({ message: "All Movies Data in JSON format from Mongo DB" });
@@ -89,7 +92,6 @@ app.use(function(req, res, next) {
     res.send('404: File Not Found');
 });
 
-require("./routes/movie.routes")(app);
 require("./routes/artist.routes")(app);
 require("./routes/genre.routes")(app);
 require("./routes/user.routes")(app);
